@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,10 +12,12 @@
   <link rel="stylesheet" href="./assets/style.css">
 
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-   <a class="navbar-brand" href="#"> <img src="./assets/images/logo.png" style="width: 100ppx; height: 100px;"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#"> <img src="./assets/images/logo.png" style="width: 100ppx; height: 100px;"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -38,58 +41,64 @@
    
         <div class="form-group">
           <label for="exampleFormControlTextarea1">What would you like to eat?</label>
-          <textarea class="form-control" id="dishEntryBox" rows="3"></textarea>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
       </form>
+
+
 
     </div>
     <ul id="recipeList" class="list-group list-group-flush">
       
     </ul>
     <div class="card-body">
-      <button type="button" id="letsEat" class="btn btn-primary btn-lg">Let's eat</button>
+      <button type="button" class="btn btn-primary btn-lg">Let's eat</button>
     </div>
   </div>
 
 
-   <!-- ------------------------------------------- -->
-  <div id="card2" class="card col-5" >
-    <div class="card-body">
-      <h5 class="card-title">Recipe Cards</h5>
- </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item"><a href="#" class="card-link">recepie1</a></li>
-      <li class="list-group-item"><a href="#" class="card-link">recepie2</a></li>
-      <li class="list-group-item"><a href="#" class="card-link">recepie3</a></li>
-      <li class="list-group-item"><a href="#" class="card-link">recepie4</a></li>
-      <li class="list-group-item"><a href="#" class="card-link">recepie5</a></li>
-      <li class="list-group-item"><a href="#" class="card-link">recepie6</a></li>
-      <li class="list-group-item"><a href="#" class="card-link">recepie7</a></li>
-      <li class="list-group-item"><a href="#" class="card-link">recepie8</a></li>
-      <li class="list-group-item"><a href="#" class="card-link">recepie9</a></li>
-      <li class="list-group-item"><a href="#" class="card-link">recepie10</a></li>
-    </ul>
-   
-  </div>
-
-  <div id="card3" class="card col-5" id ="videoDisplay">
-    <div class="card-body">
-      <h5 class="card-title ">Video Recipes</h5>
-      <p class="card-text">Recommended youtube video based on your recipe search:</p>
-      <!-- Youtube API will display video embed in div below? -->
-      <div id ="video"></div>
+    <!-- ------------------------------------------- -->
+    <div  class="card col-5">
+      <div class="card-body">
+        <h5 class="card-title">Recipe Cards</h5>
+      </div>
+      <ul class="list-group list-group-flush" id="card2">
+        <li class="list-group-item">recipe1</li>
+        <li class="list-group-item">recipe2</li>
+        <li class="list-group-item">recipe3</li>
+        <li class="list-group-item">recipe4</li>
+        <li class="list-group-item">recipe5</li>
+        <li class="list-group-item">recipe6</li>
+        <li class="list-group-item">recipe7</li>
+        <li class="list-group-item">recipe8</li>
+        <li class="list-group-item">recipe9</li>
+        <li class="list-group-item">recipe10</li>
+      </ul>
     </div>
-  </div>
 
-</main>
+    <div id="card3" class="card col-5" id="videoDisplay">
+      <div class="card-body">
+        <h5 class="card-title ">Video Recipes</h5>
+        <p class="card-text">Recommended youtube video based on your recipe search:</p>
+        <!-- Youtube API will display video embed in div below? -->
+        <div id="video">
+        <!-- Add p tag for testing, will be deleted for video embed -->
+          <p id="throwAway"></p>
+        </div>
+      </div>
+    </div>
+
+  </main>
 
 
 
 
 
 
-
+  <!-- Added jquery script below -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
   <script src="./assets/jscript/script.js"></script>
 </body>
+
 </html>

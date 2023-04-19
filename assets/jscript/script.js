@@ -7,10 +7,11 @@ var letsEat = document.getElementById("letsEat");
 
 letsEat.addEventListener("click", function () {
     var textboxEl = document.getElementById("dishEntryBox").value;
-
-
+    console.log(textboxEl)
+    
+    
     // adding the user's entered text from the texbox to localStorage
-    localStorage.setItem("recipes", textboxEl);
+    // console.log(localStorage)
     var query = textboxEl;
     $.ajax({
         method: 'GET',
@@ -19,25 +20,25 @@ letsEat.addEventListener("click", function () {
         contentType: 'application/json',
         success: function (result) {
             displayRecipeCards.innerHTML = "";
+            console.log(result);
             // for loop to display on Recipe Card
-            for (var i = 0; i < 4; i++) {
+            for(var i = 0; i < 4; i++) {
                 var recipeTitle = result[i].title;
                 var recipeIngredients = result[i].ingredients;
-                var display50chars = recipeIngredients.substring(0, 50);
+                var display50chars = recipeIngredients.substring(0,50);
                 var listTitle = document.createElement('li');
-                listTitle.setAttribute("id", "title")
+                listTitle.setAttribute("id" , "title")
                 var listIngredients = document.createElement('li');
-                listIngredients.setAttribute("id", "ingredients");
+                listIngredients.setAttribute("id" , "ingredients");
                 listTitle.innerHTML = recipeTitle;
                 listIngredients.innerHTML = display50chars;
-
+                
                 displayRecipeCards.appendChild(listTitle);
                 displayRecipeCards.appendChild(listIngredients);
-
-
-
+                console.log(result[i].title);
+                
             }
-            pullRecipe();
+            
         },
         error: function ajaxError(jqXHR) {
             console.error('Error: ', jqXHR.responseText);
@@ -67,18 +68,13 @@ letsEat.addEventListener("click", function () {
             recipeListItem.style.backgroundColor = "#f9f9f9";
       
             // Add an event listener to the list item
- feature/August
             recipeListItem.addEventListener("click", function() {
               console.log(this.innerText);
-
-            recipeListItem.addEventListener("click", function () {
-main
             });
       
             recipeList.appendChild(recipeListItem);
           }
         }
- feature/August
       }
       
       // Call the function to display saved recipes on page load
@@ -87,28 +83,14 @@ main
       window.onload = displaySavedRecipes;
       
 
-
-    }
-    
-
-
-
-
-
-
-});
-
- main
-
 // Luc's work here
 
 // API Key for youtube
-var API2 = "AIzaSyCqsrMZa943fc3nCpwCNYSZ9TZh7x2Gxeo";
+var API2 = "AIzaSyCVNs58TtoO_0K5OB2ZxDx02j2W4YMFlY4";
 
 // Adding var select for second card and for video display area
-var recipeCard;
+var recipeCard = document.getElementById("card2");
 var video = document.getElementById("video");
-recipeCard = document.getElementById("displayRecipeCard");
 
 // Calling html for ID's, generating elements for later function use
 var videoDisplay = document.createElement("iframe");
@@ -121,36 +103,32 @@ video.appendChild(videoDisplay);
 
 // Prints recipe card info to video card info
 // Proof of concept/for testing purposes currently, need youtube API and recipe API added
-function pullRecipe() {
-    recipeCard.addEventListener("click", function () {
-        var selectedRecipe = event.target;
-        var selectedRecipeText = selectedRecipe.innerHTML;
-        if(selectedRecipe.id === "title"){
-            searchYouTube(selectedRecipeText, API2);
-        }
-    })
-}
+recipeCard.addEventListener("click", function () {
+    var selectedRecipe = event.target;
+    var selectedRecipeText = selectedRecipe.innerHTML;
+    searchYouTube(selectedRecipeText, API2);
+    return;
+})
+
 
 
 function searchYouTube(recipe, key) {
-    var videoSearch = "https://www.googleapis.com/youtube/v3/search?key=" + key + "&type=video&part=snippet&maxResults=1&q=" + recipe + " recipe";
+    var videoSearch = "https://www.googleapis.com/youtube/v3/search?key=" +key+ "&type=video&part=snippet&maxResults=1&q=" + recipe;
+
     fetch(videoSearch, {})
-        .then(function (response) {
-            if(response.status === 403){
-                videoTitle.textContent = "Youtube API is out of quota credits. Either wait a day or get a new API key."
-                return;
-            }
-            else if (response.status !== 200) {
-                videoTitle.textContent = "Youtube is currently experiencing issues please try again later";
-                return;
-            } else {
-                return response.json();
-            }
-        })
-        .then(function (data) {
-            videoTitle.textContent = "Similar video from youtube based on your selection: "+ data.items[0].snippet.title;
-            videoDisplay.src = youtubeURL + data.items[0].id.videoId;
-            videoDisplay.width = "100%";
-            videoDisplay.height = "80%";
-        })
+    .then(function (response){
+        if(response.status !== 200){
+            videoTitle.textContent = "Youtube is currently experiencing issues please try again later";
+            return;
+        }else{
+        return response.json();
+        }
+    })
+    .then(function (data){
+        videoTitle.textContent = data.items[0].snippet.title;
+        videoDisplay.src = youtubeURL + data.items[0].id.videoId;
+        videoDisplay.width = "100%";
+        videoDisplay.height = "80%";
+        return;
+    })
 }

@@ -44,34 +44,49 @@ letsEat.addEventListener("click", function () {
             
             fetchButton.addEventListener('click');  
         }
-    });   
-    
-        
-        localStorage.setItem("recipes", textboxEl);
-    // Get the saved recipes from local storage
-    var savedRecipes = localStorage.getItem("recipes");
-    
-    // If there are saved recipes, display them in a list
-    if (savedRecipes) {
-        // Split the saved recipes into an array
-        var recipesArray = savedRecipes.split(",");
-        
-        // Get the container element to display the list
-        var recipeList = document.getElementById("recipeList");
-        
-        // Loop through the recipes array and create a new list item for each recipe
-        for (var i = 0; i < recipesArray.length; i++) {
+    }); 
+      
+    });
+    function displaySavedRecipes() {
+        // Get the saved recipes from localStorage
+        var savedRecipes = localStorage.getItem("recipes");
+      
+        // If there are saved recipes, display them in a list
+        if (savedRecipes) {
+          // Split the saved recipes into an array
+          var recipesArray = savedRecipes.split(",");
+      
+          // Get the container element to display the list
+          var recipeList = document.getElementById("recipeList");
+      
+          // Loop through the recipes array and create a new list item for each recipe
+          for (var i = 0; i < recipesArray.length; i++) {
             var recipeListItem = document.createElement("li");
             recipeListItem.innerText = recipesArray[i];
             recipeListItem.style.borderBottom = "1px solid #ccc";
             recipeListItem.style.backgroundColor = "#f9f9f9";
-            
+      
             // Add an event listener to the list item
+ feature/August
+            recipeListItem.addEventListener("click", function() {
+              console.log(this.innerText);
+
             recipeListItem.addEventListener("click", function () {
+main
             });
-            
+      
             recipeList.appendChild(recipeListItem);
+          }
         }
+ feature/August
+      }
+      
+      // Call the function to display saved recipes on page load
+      
+      
+      window.onload = displaySavedRecipes;
+      
+
 
     }
     
@@ -83,6 +98,7 @@ letsEat.addEventListener("click", function () {
 
 });
 
+ main
 
 // Luc's work here
 

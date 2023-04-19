@@ -19,6 +19,7 @@ letsEat.addEventListener("click", function () {
         headers: { 'X-Api-Key': API },
         contentType: 'application/json',
         success: function (result) {
+            displayRecipeCards.innerHTML = "";
             console.log(result);
             // for loop to display on Recipe Card
             for(var i = 0; i < 4; i++) {

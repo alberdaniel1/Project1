@@ -63,15 +63,51 @@ letsEat.addEventListener("click", function () {
 
 
 // Luc's work here
+
+// API Key for youtube
+var API2 = "AIzaSyCVNs58TtoO_0K5OB2ZxDx02j2W4YMFlY4";
+
 // Adding var select for second card and for video display area
-var recipeCard = document.getElementById("card2")
-var video = document.getElementById("throwAway")
+var recipeCard = document.getElementById("card2");
+var video = document.getElementById("video");
+
+// Calling html for ID's, generating elements for later function use
+var videoDisplay = document.createElement("iframe");
+var videoTitle = document.createElement("h6");
+video.style.height = "100%";
+var youtubeURL = "https://www.youtube.com/embed/";
+video.appendChild(videoTitle);
+video.appendChild(videoDisplay);
+
 
 // Prints recipe card info to video card info
 // Proof of concept/for testing purposes currently, need youtube API and recipe API added
 recipeCard.addEventListener("click", function () {
     var selectedRecipe = event.target;
     var selectedRecipeText = selectedRecipe.innerHTML;
-    video.textContent = selectedRecipeText;
+    searchYouTube(selectedRecipeText, API2);
     return;
 })
+
+
+
+function searchYouTube(recipe, key) {
+    var videoSearch = "https://www.googleapis.com/youtube/v3/search?key=" +key+ "&type=video&part=snippet&maxResults=1&q=" + recipe;
+
+    fetch(videoSearch, {})
+    .then(function (response){
+        if(response.status !== 200){
+            videoTitle.textContent = "Youtube is currently experiencing issues please try again later";
+            return;
+        }else{
+        return response.json();
+        }
+    })
+    .then(function (data){
+        videoTitle.textContent = data.items[0].snippet.title;
+        videoDisplay.src = youtubeURL + data.items[0].id.videoId;
+        videoDisplay.width = "100%";
+        videoDisplay.height = "80%";
+        return;
+    })
+}

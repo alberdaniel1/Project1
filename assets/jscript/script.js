@@ -2,13 +2,14 @@
 //grab textbox user entry
 var API = "5VkpQWeFYgp2DIB7mOyEgg==WvtYDpjrBR0rVt5X";
 
-
+var displayRecipeCards = document.getElementById("displayRecipeCard");
 var letsEat = document.getElementById("letsEat");
 
 letsEat.addEventListener("click", function () {
     var textboxEl = document.getElementById("dishEntryBox").value;
     console.log(textboxEl)
-
+    
+    
     // adding the user's entered text from the texbox to localStorage
     localStorage.setItem("recipes", textboxEl);
     console.log(localStorage)
@@ -20,11 +21,31 @@ letsEat.addEventListener("click", function () {
         contentType: 'application/json',
         success: function (result) {
             console.log(result);
-        },
+            // for loop to display on Recipe Card
+            for(var i = 0; i < 4; i++) {
+                var recipeTitle = result[i].title;
+                var recipeIngredients = result[i].ingredients;
+                var display50chars = recipeIngredients.substring(0,50);
+                var listTitle = document.createElement('li');
+                listTitle.setAttribute("id" , "title")
+                var listIngredients = document.createElement('li');
+                listIngredients.setAttribute("id" , "ingredients");
+                listTitle.innerHTML = recipeTitle;
+                listIngredients.innerHTML = display50chars;
+                
+                displayRecipeCards.appendChild(listTitle);
+                displayRecipeCards.appendChild(listIngredients);
+                console.log(result[i].title);
+
+                }
+                
+            },
         error: function ajaxError(jqXHR) {
             console.error('Error: ', jqXHR.responseText);
-        }
-    });
+              
+                 fetchButton.addEventListener('click');  
+         }
+    });   
 
 
     // Get the saved recipes from local storage

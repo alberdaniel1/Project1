@@ -11,8 +11,7 @@ letsEat.addEventListener("click", function () {
     
     
     // adding the user's entered text from the texbox to localStorage
-    localStorage.setItem("recipes", textboxEl);
-    console.log(localStorage)
+    // console.log(localStorage)
     var query = textboxEl;
     $.ajax({
         method: 'GET',
@@ -36,44 +35,46 @@ letsEat.addEventListener("click", function () {
                 displayRecipeCards.appendChild(listTitle);
                 displayRecipeCards.appendChild(listIngredients);
                 console.log(result[i].title);
-
-                }
                 
-            },
+            }
+            
+        },
         error: function ajaxError(jqXHR) {
             console.error('Error: ', jqXHR.responseText);
-              
-                 fetchButton.addEventListener('click');  
-         }
+            
+            fetchButton.addEventListener('click');  
+        }
     });   
-
-
+    
+        
+        localStorage.setItem("recipes", textboxEl);
     // Get the saved recipes from local storage
     var savedRecipes = localStorage.getItem("recipes");
-
+    
     // If there are saved recipes, display them in a list
     if (savedRecipes) {
         // Split the saved recipes into an array
         var recipesArray = savedRecipes.split(",");
-
+        
         // Get the container element to display the list
         var recipeList = document.getElementById("recipeList");
-
+        
         // Loop through the recipes array and create a new list item for each recipe
         for (var i = 0; i < recipesArray.length; i++) {
             var recipeListItem = document.createElement("li");
             recipeListItem.innerText = recipesArray[i];
             recipeListItem.style.borderBottom = "1px solid #ccc";
             recipeListItem.style.backgroundColor = "#f9f9f9";
-
+            
             // Add an event listener to the list item
             recipeListItem.addEventListener("click", function () {
                 console.log(this.innerText);
             });
-
+            
             recipeList.appendChild(recipeListItem);
         }
     }
+    
 
 
 

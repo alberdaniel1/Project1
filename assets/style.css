@@ -1,0 +1,13 @@
+/* #displayRecipeCard li{
+  background-color: gray;
+  border-style: double;
+} */
+
+
+#title{
+  font-size: 18px;
+  background-color:gray;
+}
+#ingredients{
+  font-size:12;
+}

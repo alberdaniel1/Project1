@@ -1,24 +1,40 @@
-// august starts here
-//grab textbox user entry
 var API = "5VkpQWeFYgp2DIB7mOyEgg==WvtYDpjrBR0rVt5X";
-
 var displayRecipeCards = document.getElementById("displayRecipeCard");
 var letsEat = document.getElementById("letsEat");
+//window.onload =  saveAndDisplayLocalStorage;
+var dishEntryBoxEl = document.getElementById("dishEntryBox");
+var recipeListDisplayEl = document.getElementById('recipeListDisplay')
+
+let recipeItemsArray = localStorage.getItem('items') ?
+JSON.parse(localStorage.getItem('items')) : [];
+recipeItemsArray.forEach(addTask);
+function addTask(text){
+    const li = document.createElement('li')
+    li.textContent = text;
+    recipeListDisplayEl.appendChild(li);
+    li.addEventListener("click", function () {
+        
+    });
+}
+
+//Add an event listener to the list item
+
+
 
 letsEat.addEventListener("click", function () {
-    var textboxEl = document.getElementById("dishEntryBox").value;
-    // console.log(textboxEl)
 
-    // adding the user's entered text from the texbox to localStorage
-    localStorage.setItem("recipes", textboxEl);
-    var query = textboxEl;
+    var query = dishEntryBoxEl.value;
+    // localStorage.setItem("recipes", textboxEl.value);
+    // Call the API to get recipe results
+
     $.ajax({
         method: 'GET',
-        url: 'https://api.api-ninjas.com/v1/recipe?query=' + query,
+        url: 'https://api.api-ninjas.com/v1/recipe',
         headers: { 'X-Api-Key': API },
-        contentType: 'application/json',
+        data: { query: query },
         success: function (result) {
             displayRecipeCards.innerHTML = "";
+
             var accordion = document.createElement('div');
             displayRecipeCards.appendChild(accordion);
             accordion.setAttribute("id", "accordion")
@@ -50,41 +66,13 @@ letsEat.addEventListener("click", function () {
             fetchButton.addEventListener('click');
         }
     });
+    recipeItemsArray.push(dishEntryBoxEl.value);
+    localStorage.setItem('items', JSON.stringify(recipeItemsArray));
+    addTask(dishEntryBoxEl.value);
+    dishEntryBoxEl.value = '';
 });
 
-function displaySavedRecipes() {
-    // Get the saved recipes from localStorage
-    var savedRecipes = localStorage.getItem("recipes");
 
-    // If there are saved recipes, display them in a list
-    if (savedRecipes) {
-        // Split the saved recipes into an array
-        var recipesArray = savedRecipes.split(",");
-
-        // Get the container element to display the list
-        var recipeList = document.getElementById("recipeList");
-
-        // Loop through the recipes array and create a new list item for each recipe
-        for (var i = 0; i < recipesArray.length; i++) {
-            var recipeListItem = document.createElement("li");
-            recipeListItem.innerText = recipesArray[i];
-            recipeListItem.style.borderBottom = "1px solid #ccc";
-            recipeListItem.style.backgroundColor = "#f9f9f9";
-
-            // Add an event listener to the list item
-            recipeListItem.addEventListener("click", function () {
-                // console.log(this.innerText);
-            });
-
-            recipeList.appendChild(recipeListItem);
-        }
-    }
-}
-
-// Call the function to display saved recipes on page load
-
-
-window.onload = displaySavedRecipes;
 
 
 // API Key for youtube
@@ -119,6 +107,8 @@ function pullRecipe() {
 
 // This function searches youtube
 function searchYouTube(recipe, key) {
+
+
     // Creates string using youtube API key and recipe name taken from the recipe function
     var videoSearch = "https://www.googleapis.com/youtube/v3/search?key=" + key + "&type=video&part=snippet&maxResults=1&q=" + recipe + " recipe";
     fetch(videoSearch, {})
@@ -128,6 +118,7 @@ function searchYouTube(recipe, key) {
                 return;
             }
             else if (response.status !== 200) {
+
                 videoTitle.textContent = "Youtube is currently experiencing issues please try again later";
                 return;
             } else {
@@ -135,11 +126,13 @@ function searchYouTube(recipe, key) {
             }
         })
         .then(function (data) {
+
             // Puts video title, and youtube video into iframe. Sets width too 100% of the video card and sets width to 80% so it doesn't spill over into other cards.
             videoTitle.textContent = "Similar video from youtube based on your selection: " + data.items[0].snippet.title;
             videoDisplay.src = youtubeURL + data.items[0].id.videoId;
             videoDisplay.width = "100%";
             videoDisplay.height = "80%";
+
         })
 }
 

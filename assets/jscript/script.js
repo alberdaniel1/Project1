@@ -19,6 +19,12 @@ letsEat.addEventListener("click", function () {
         contentType: 'application/json',
         success: function (result) {
             displayRecipeCards.innerHTML = "";
+            var accordion = document.createElement('div');
+            displayRecipeCards.appendChild(accordion);
+            accordion.setAttribute("id", "accordion")
+            $(function () {
+                $("#accordion").accordion();
+            });
             // for loop to display on Recipe Card
             for (var i = 0; i < 4; i++) {
                 var recipeTitle = result[i].title;
@@ -30,16 +36,14 @@ letsEat.addEventListener("click", function () {
                 listIngredients.setAttribute("id", "ingredients");
                 listTitle.innerHTML = recipeTitle;
                 listIngredients.innerHTML = display50chars;
-                displayRecipeCards.appendChild(listTitle);
-                displayRecipeCards.appendChild(listIngredients);
+                accordion.appendChild(listTitle);
+                accordion.appendChild(listIngredients);
                 // console.log(result[i].title);
             }
             // Turns newly created recipe cards into accordion via JqueryUI
-            $(function () {
-                $("#displayRecipeCard").accordion();
-            });
+
             // Calls function used to search youtube for videos
-            pullRecipe();
+             pullRecipe();
         },
         error: function ajaxError(jqXHR) {
             // console.error('Error: ', jqXHR.responseText);

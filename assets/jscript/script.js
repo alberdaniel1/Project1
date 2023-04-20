@@ -7,7 +7,7 @@ var letsEat = document.getElementById("letsEat");
 
 letsEat.addEventListener("click", function () {
     var textboxEl = document.getElementById("dishEntryBox").value;
-
+    // console.log(textboxEl)
 
     // adding the user's entered text from the texbox to localStorage
     localStorage.setItem("recipes", textboxEl);
@@ -32,15 +32,17 @@ letsEat.addEventListener("click", function () {
                 listIngredients.innerHTML = display50chars;
                 displayRecipeCards.appendChild(listTitle);
                 displayRecipeCards.appendChild(listIngredients);
+                // console.log(result[i].title);
             }
+            // Turns newly created recipe cards into accordion via JqueryUI
             $(function () {
                 $("#displayRecipeCard").accordion();
             });
+            // Calls function used to search youtube for videos
             pullRecipe();
         },
         error: function ajaxError(jqXHR) {
             // console.error('Error: ', jqXHR.responseText);
-
             fetchButton.addEventListener('click');
         }
     });
@@ -81,15 +83,12 @@ function displaySavedRecipes() {
 window.onload = displaySavedRecipes;
 
 
-// Luc's work here
-
 // API Key for youtube
 var API2 = "AIzaSyCqsrMZa943fc3nCpwCNYSZ9TZh7x2Gxeo";
 
 // Adding var select for second card and for video display area
-var recipeCard;
+var recipeCard = document.getElementById("displayRecipeCard");
 var video = document.getElementById("video");
-recipeCard = document.getElementById("displayRecipeCard");
 
 // Calling html for ID's, generating elements for later function use
 var videoDisplay = document.createElement("iframe");
@@ -101,21 +100,22 @@ video.appendChild(videoDisplay);
 
 
 // Prints recipe card info to video card info
-// Proof of concept/for testing purposes currently, need youtube API and recipe API added
 function pullRecipe() {
     recipeCard.addEventListener("click", function () {
         var selectedRecipe = event.target;
         // console.log(selectedRecipe);
         var selectedRecipeText = selectedRecipe.textContent;
         // console.log(selectedRecipeText)
+        // Checks to make sure the item being clicked is a title ID aka a recipe, ignores the ingridents 
         if (selectedRecipe.id === "title") {
             searchYouTube(selectedRecipeText, API2);
         }
     })
 }
 
-
+// This function searches youtube
 function searchYouTube(recipe, key) {
+    // Creates string using youtube API key and recipe name taken from the recipe function
     var videoSearch = "https://www.googleapis.com/youtube/v3/search?key=" + key + "&type=video&part=snippet&maxResults=1&q=" + recipe + " recipe";
     fetch(videoSearch, {})
         .then(function (response) {
@@ -131,6 +131,7 @@ function searchYouTube(recipe, key) {
             }
         })
         .then(function (data) {
+            // Puts video title, and youtube video into iframe. Sets width too 100% of the video card and sets width to 80% so it doesn't spill over into other cards.
             videoTitle.textContent = "Similar video from youtube based on your selection: " + data.items[0].snippet.title;
             videoDisplay.src = youtubeURL + data.items[0].id.videoId;
             videoDisplay.width = "100%";

@@ -13,7 +13,6 @@
 
   
 </head>
-
 <body class="body">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
    <a class="navbar-brand" href="#"> <img src="./assets/images/logo.png" style="width: 100ppx; height: 100px;"></a>
@@ -34,12 +33,12 @@
 
 
  <main class="d-flex">
-  <div id="card1" class="card col-2" >
+  <div id="card1" class="card  col-2" >
     <div class="card-body">
       <form>
    
         <div class="form-group">
-          <label for="exampleFormControlTextarea1">What would you like to eat?</label>
+          <label for="exampleFormControlTextarea1" id="text1">What would you like to eat?</label>
           <textarea class="form-control" id="dishEntryBox" rows="3"></textarea>
         </div>
       </form>
@@ -57,7 +56,7 @@
    <!-- ------------------------------------------- -->
   <div id="card2" class="card col-5" >
     <div class="card-body">
-      <h5 class="card-title">Recipe Cards</h5>
+      <h5 class="card-title" id="text2">Recipe Cards</h5>
       <ul id="displayRecipeCard" class="list-group list-group-flush"></ul>
       <!-- <ul id="displayRecipeCard"></ul> -->
  </div>
@@ -65,7 +64,7 @@
   </div>
     <div id="card3" class="card col-5" id="videoDisplay">
       <div class="card-body">
-        <h5 class="card-title ">Video Recipes</h5>
+        <h5 class="card-title" id="text3">Video Recipes</h5>
         <!-- Youtube API will display video embed in div below? -->
         <div id="video">
           

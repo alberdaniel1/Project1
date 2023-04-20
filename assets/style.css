@@ -10,4 +10,67 @@
 }
 #ingredients{
   font-size:12;
+ }
+.body {
+  background-image: url("https://images.creativemarket.com/0.1.0/ps/6686472/910/607/m2/fpnw/wm1/inxo00aws6rrqosj5ag6jgp0bneta2mmfjznairni7mpyym0yekqinkzdcyx0re4-.jpg?1563236855&s=7cc35ee41c5d0d86fff5a992a87308d6&fmt=webp");
 }
+#card1 {
+  border: 1px;
+  background-color: transparent;
+  margin:50px;
+  opacity: .9;
+  color: black;
+  font-size: 15px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+} 
+#card2 {
+  border: 1px;
+  background-color: transparent;
+  margin:50px;
+  opacity: .9;
+  color: black;
+  font-size: 15px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+} 
+#card3 {
+  border: 1px; 
+  background-color: transparent;
+  margin:50px;
+  opacity: .9;
+  color: black;
+  font-size: 15px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+} 
+.navbar {
+  border: 1px;
+  background-color: transparent;
+  margin:50px;
+  opacity: .9;
+  color: black;
+  font-size: 15px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+} 
+.form-control {
+  border: 1px;
+  background-color: rgb(236, 227, 227);
+  margin:50px;
+  opacity: .9;
+  color: black;
+  font-size: 15px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+} 
+#text1{
+  font-size: 20px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+ 
+}
+#text2{
+  font-size: 50px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+ 
+}#text3{
+  font-size: 50px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+ 
+}
+  

@@ -22,9 +22,11 @@ function addTask(text){
 
 
 letsEat.addEventListener("click", function () {
+
     var query = dishEntryBoxEl.value;
     // localStorage.setItem("recipes", textboxEl.value);
     // Call the API to get recipe results
+
     $.ajax({
         method: 'GET',
         url: 'https://api.api-ninjas.com/v1/recipe',
@@ -32,58 +34,52 @@ letsEat.addEventListener("click", function () {
         data: { query: query },
         success: function (result) {
             displayRecipeCards.innerHTML = "";
+
+            var accordion = document.createElement('div');
+            displayRecipeCards.appendChild(accordion);
+            accordion.setAttribute("id", "accordion")
+            $(function () {
+                $("#accordion").accordion();
+            });
+            // for loop to display on Recipe Card
             for (var i = 0; i < 4; i++) {
-                var recipe = result[i];
-                var listTitle = document.createElement('li');
+                var recipeTitle = result[i].title;
+                var recipeIngredients = result[i].ingredients;
+                var display50chars = recipeIngredients.substring(0, 50);
+                var listTitle = document.createElement('h3');
                 listTitle.setAttribute("id", "title")
-                listTitle.innerHTML = recipe.title;
-                displayRecipeCards.appendChild(listTitle);
-                if (recipe.ingredients) {
-                    var listIngredients = document.createElement('li');
-                    listIngredients.setAttribute("id", "ingredients");
-                    listIngredients.innerHTML = recipe.ingredients.substring(0, 50);
-                    displayRecipeCards.appendChild(listIngredients);
-                }
+                var listIngredients = document.createElement('p');
+                listIngredients.setAttribute("id", "ingredients");
+                listTitle.innerHTML = recipeTitle;
+                listIngredients.innerHTML = display50chars;
+                accordion.appendChild(listTitle);
+                accordion.appendChild(listIngredients);
+                // console.log(result[i].title);
             }
+            // Turns newly created recipe cards into accordion via JqueryUI
+
+            // Calls function used to search youtube for videos
+             pullRecipe();
         },
-        error: function (jqXHR) {
-            console.error('Error: ', jqXHR.responseText);
+        error: function ajaxError(jqXHR) {
+            // console.error('Error: ', jqXHR.responseText);
+            fetchButton.addEventListener('click');
         }
     });
     recipeItemsArray.push(dishEntryBoxEl.value);
     localStorage.setItem('items', JSON.stringify(recipeItemsArray));
     addTask(dishEntryBoxEl.value);
     dishEntryBoxEl.value = '';
-
 });
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Luc's work here
-
 // API Key for youtube
-var API2 = "AIzaSyCVNs58TtoO_0K5OB2ZxDx02j2W4YMFlY4";
+var API2 = "AIzaSyCqsrMZa943fc3nCpwCNYSZ9TZh7x2Gxeo";
 
 // Adding var select for second card and for video display area
-var recipeCard = document.getElementById("card2");
+var recipeCard = document.getElementById("displayRecipeCard");
 var video = document.getElementById("video");
 
 // Calling html for ID's, generating elements for later function use
@@ -96,22 +92,33 @@ video.appendChild(videoDisplay);
 
 
 // Prints recipe card info to video card info
-// Proof of concept/for testing purposes currently, need youtube API and recipe API added
-recipeCard.addEventListener("click", function () {
-    var selectedRecipe = event.target;
-    var selectedRecipeText = selectedRecipe.innerHTML;
-    searchYouTube(selectedRecipeText, API2);
-    return;
-})
+function pullRecipe() {
+    recipeCard.addEventListener("click", function () {
+        var selectedRecipe = event.target;
+        // console.log(selectedRecipe);
+        var selectedRecipeText = selectedRecipe.textContent;
+        // console.log(selectedRecipeText)
+        // Checks to make sure the item being clicked is a title ID aka a recipe, ignores the ingridents 
+        if (selectedRecipe.id === "title") {
+            searchYouTube(selectedRecipeText, API2);
+        }
+    })
+}
 
-
-
+// This function searches youtube
 function searchYouTube(recipe, key) {
-    var videoSearch = "https://www.googleapis.com/youtube/v3/search?key=" + key + "&type=video&part=snippet&maxResults=1&q=" + recipe;
 
+
+    // Creates string using youtube API key and recipe name taken from the recipe function
+    var videoSearch = "https://www.googleapis.com/youtube/v3/search?key=" + key + "&type=video&part=snippet&maxResults=1&q=" + recipe + " recipe";
     fetch(videoSearch, {})
         .then(function (response) {
-            if (response.status !== 200) {
+            if (response.status === 403) {
+                videoTitle.textContent = "Youtube API is out of quota credits. Either wait a day or get a new API key."
+                return;
+            }
+            else if (response.status !== 200) {
+
                 videoTitle.textContent = "Youtube is currently experiencing issues please try again later";
                 return;
             } else {
@@ -119,10 +126,14 @@ function searchYouTube(recipe, key) {
             }
         })
         .then(function (data) {
-            videoTitle.textContent = data.items[0].snippet.title;
+
+            // Puts video title, and youtube video into iframe. Sets width too 100% of the video card and sets width to 80% so it doesn't spill over into other cards.
+            videoTitle.textContent = "Similar video from youtube based on your selection: " + data.items[0].snippet.title;
             videoDisplay.src = youtubeURL + data.items[0].id.videoId;
             videoDisplay.width = "100%";
             videoDisplay.height = "80%";
-            return;
+
         })
 }
+
+// 

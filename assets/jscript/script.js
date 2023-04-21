@@ -35,6 +35,7 @@ letsEat.addEventListener("click", function () {
         success: function (result) {
             displayRecipeCards.innerHTML = "";
 
+            // Turns newly created recipe cards into accordion via JqueryUI
             var accordion = document.createElement('div');
             displayRecipeCards.appendChild(accordion);
             accordion.setAttribute("id", "accordion")
@@ -56,7 +57,6 @@ letsEat.addEventListener("click", function () {
                 accordion.appendChild(listIngredients);
                 // console.log(result[i].title);
             }
-            // Turns newly created recipe cards into accordion via JqueryUI
 
             // Calls function used to search youtube for videos
              pullRecipe();
@@ -76,7 +76,7 @@ letsEat.addEventListener("click", function () {
 
 
 // API Key for youtube
-var API2 = "AIzaSyCqsrMZa943fc3nCpwCNYSZ9TZh7x2Gxeo";
+var API2 = "AIzaSyCVNs58TtoO_0K5OB2ZxDx02j2W4YMFlY4";
 
 // Adding var select for second card and for video display area
 var recipeCard = document.getElementById("displayRecipeCard");

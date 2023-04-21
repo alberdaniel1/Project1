@@ -42,7 +42,7 @@ letsEat.addEventListener("click", function () {
                 $("#accordion").accordion();
             });
             // for loop to display on Recipe Card
-            for (var i = 0; i < 4; i++) {
+            for (var i = 0; i < 8; i++) {
                 var recipeTitle = result[i].title;
                 var recipeIngredients = result[i].ingredients;
                 var display50chars = recipeIngredients.substring(0, 50);
